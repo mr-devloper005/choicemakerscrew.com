@@ -2,25 +2,25 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Independent reading platform',
+    tagline: 'Independent editorial publication',
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
+    tagline: 'Articles, features, and thoughtful publishing',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
+    badge: 'Opinion and editorial reading',
+    title: ['Explore article-led publishing with stronger cover-story energy.'],
     description:
-      'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      'A magazine-style article platform built for publishing stories, commentary, and long-form editorial pieces.',
     primaryCta: {
-      label: 'Read latest stories',
+      label: 'Open editorials',
       href: '/articles',
     },
     secondaryCta: {
-      label: 'Explore visuals',
-      href: '/images',
+      label: 'Browse reading',
+      href: '/articles',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search articles, features, guides, and editorials',
     focusLabel: 'Focus',
     featureCardBadge: 'latest cover rotation',
     featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
