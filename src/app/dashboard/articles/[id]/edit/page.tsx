@@ -53,16 +53,16 @@ export default function DashboardArticleEditPage({ params }: { params: Promise<{
         <CardContent className="p-6 space-y-4">
           <div>
             <label className="text-sm font-medium text-foreground">Title</label>
-            <Input className="mt-2" placeholder="Article title" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <Input className="mt-2 border-white/12 bg-input text-foreground" placeholder="Article title" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div>
             <label className="text-sm font-medium text-foreground">Excerpt</label>
-            <Textarea className="mt-2" placeholder="Short summary" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
+            <Textarea className="mt-2 border-white/12 bg-input text-foreground leading-7" placeholder="Short summary" value={excerpt} onChange={(e) => setExcerpt(e.target.value)} />
           </div>
           <div>
             <label className="text-sm font-medium text-foreground">Content</label>
             <Textarea
-              className="mt-2 min-h-[200px]"
+              className="mt-2 min-h-[22rem] resize-y border-white/12 bg-input text-foreground text-base leading-7 md:text-[15px]"
               placeholder="Article content"
               value={content}
               onChange={(e) => setContent(e.target.value)}

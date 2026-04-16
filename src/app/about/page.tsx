@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BookOpen, Compass, Sparkles } from "lucide-react";
 import { PageShell } from "@/components/shared/page-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,9 +15,9 @@ const highlights = [
 ];
 
 const values = [
-  { title: "Curated by people", description: "We believe trusted recommendations beat endless feeds." },
-  { title: "Designed for focus", description: "Clear, calm UI helps you find the next best resource fast." },
-  { title: "Built to share", description: "Collections make collaboration and knowledge flow effortless." },
+  { title: "Editorial clarity first", description: "We design every surface for readability, context, and clear decision-making." },
+  { title: "Meaning over noise", description: "We prioritize high-signal publishing instead of infinite low-value scrolling." },
+  { title: "Practical depth", description: "Every section is built to connect insights with real-world action." },
 ];
 
 export default function AboutPage() {
@@ -40,17 +41,31 @@ export default function AboutPage() {
           <CardContent className="space-y-4 p-6">
             <Badge variant="secondary">Our Story</Badge>
             <h2 className="text-2xl font-semibold text-foreground">
-              A single home for knowledge, discovery, and community.
+              An article-led platform built for thoughtful reading and sharper decisions.
             </h2>
             <p className="text-sm text-muted-foreground">
-              {SITE_CONFIG.name} brings together publishing, listings, and social bookmarking so teams can move faster
-              and keep their best resources close.
+              {SITE_CONFIG.name} is focused on premium editorial publishing, discovery, and practical learning.
+              We combine structured long-form writing with clear browsing paths so readers can move from insight
+              to action without friction.
             </p>
             <div className="grid gap-4 sm:grid-cols-3">
               {highlights.map((item) => (
                 <div key={item.label} className="rounded-lg border border-border bg-secondary/40 p-4">
                   <div className="text-2xl font-semibold text-foreground">{item.value}</div>
                   <div className="text-xs text-muted-foreground">{item.label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="grid gap-3 border-t border-white/10 pt-4 sm:grid-cols-3">
+              {[
+                { icon: BookOpen, title: "Deep reading", text: "Long-form stories with better structure and pacing." },
+                { icon: Compass, title: "Guided discovery", text: "Explore content by clear themes and editorial lanes." },
+                { icon: Sparkles, title: "Modern publishing", text: "Fresh content formats with a premium reading experience." },
+              ].map((item) => (
+                <div key={item.title} className="rounded-lg border border-white/10 bg-white/5 p-4">
+                  <item.icon className="h-4 w-4 text-[rgb(232,168,50)]" />
+                  <p className="mt-2 text-sm font-semibold text-foreground">{item.title}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{item.text}</p>
                 </div>
               ))}
             </div>
