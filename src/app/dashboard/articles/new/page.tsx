@@ -220,7 +220,7 @@ export default function NewArticlePage() {
                   placeholder="Article title..."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="text-2xl font-bold border-none shadow-none px-0 focus-visible:ring-0 placeholder:text-muted-foreground"
+                  className="text-2xl font-bold border-none bg-transparent text-foreground shadow-none px-0 focus-visible:ring-0 placeholder:text-muted-foreground"
                 />
               </div>
 
@@ -232,12 +232,13 @@ export default function NewArticlePage() {
                   placeholder="Write a short summary of your article..."
                   value={excerpt}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  rows={2}
+                  rows={3}
+                  className="border-white/12 bg-input text-foreground leading-7 placeholder:text-muted-foreground"
                 />
               </div>
 
               {/* Toolbar */}
-              <div className="flex flex-wrap gap-1 p-2 mb-4 bg-muted/50 rounded-lg">
+              <div className="flex flex-wrap gap-1 p-2 mb-4 rounded-lg border border-white/10 bg-white/5">
                 <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleToolbarAction('Bold')}>
                   <Bold className="h-4 w-4" />
                 </Button>
@@ -277,8 +278,8 @@ export default function NewArticlePage() {
                 placeholder="Start writing your article content here..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                rows={20}
-                className="min-h-[400px] resize-none"
+                rows={24}
+                className="min-h-[28rem] resize-y border-white/12 bg-input text-foreground text-base leading-7 placeholder:text-muted-foreground md:text-[15px]"
               />
             </motion.div>
           </div>

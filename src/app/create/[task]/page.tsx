@@ -300,17 +300,17 @@ export default function CreateTaskPage() {
                 </Label>
                 {field.type === "textarea" ? (
                   <Textarea
-                    rows={4}
+                    rows={field.key === "description" ? 14 : 4}
                     placeholder={field.placeholder}
                     value={values[field.key] || ""}
                     onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="border-2 border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="min-h-[120px] border-white/15 bg-input text-foreground leading-7 placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[rgb(232,168,50)]/35 md:text-base"
                   />
                 ) : field.type === "category" ? (
                   <select
                     value={values[field.key] || ""}
                     onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="h-11 rounded-lg border-2 border-slate-200 bg-white px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="h-11 rounded-lg border border-white/15 bg-input px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(232,168,50)]/35"
                   >
                     <option value="">Select category</option>
                     {CATEGORY_OPTIONS.map((option) => (
@@ -368,7 +368,7 @@ export default function CreateTaskPage() {
                     }
                     value={values[field.key] || ""}
                     onChange={(event) => updateValue(field.key, event.target.value)}
-                    className="h-11 border-2 border-slate-200 bg-white focus-visible:ring-2 focus-visible:ring-primary/30"
+                    className="h-11 border-white/15 bg-input text-foreground placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[rgb(232,168,50)]/35"
                   />
                 )}
               </div>
