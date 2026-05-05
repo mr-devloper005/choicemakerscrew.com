@@ -87,8 +87,6 @@ function HeroCard({ post }: { post: SitePost }) {
         )}
         <div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
           {post.authorName && <span className="font-medium text-foreground/80">{post.authorName}</span>}
-          {post.authorName && post.publishedAt && <span className="h-0.5 w-0.5 rounded-full bg-muted-foreground/50" />}
-          {post.publishedAt && <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{formatDate(post.publishedAt)}</span>}
         </div>
         <div className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-[rgb(232,168,50)]">
           Read article
@@ -124,10 +122,8 @@ function SideCard({ post }: { post: SitePost }) {
           {post.title}
         </h3>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          {post.publishedAt && <span>{formatDate(post.publishedAt)}</span>}
           {post.authorName && (
             <>
-              <span className="h-0.5 w-0.5 rounded-full bg-muted-foreground/40" />
               <span>{post.authorName}</span>
             </>
           )}
@@ -173,12 +169,6 @@ function GridCard({ post }: { post: SitePost }) {
           {post.authorName && (
             <span className="font-medium text-foreground/70">{post.authorName}</span>
           )}
-          {post.publishedAt && post.authorName && (
-            <span className="h-0.5 w-0.5 rounded-full bg-muted-foreground/40" />
-          )}
-          {post.publishedAt && (
-            <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{formatDate(post.publishedAt)}</span>
-          )}
         </div>
       </div>
     </Link>
@@ -203,12 +193,6 @@ function ListCard({ post, index }: { post: SitePost; index: number }) {
         </h3>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           {post.authorName && <span>{post.authorName}</span>}
-          {post.publishedAt && (
-            <>
-              <span className="h-0.5 w-0.5 rounded-full bg-muted-foreground/40" />
-              <span>{formatDate(post.publishedAt)}</span>
-            </>
-          )}
         </div>
       </div>
     </Link>
