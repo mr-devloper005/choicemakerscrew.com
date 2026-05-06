@@ -15,6 +15,7 @@ const API_BASE =
 const SITE_CODE = process.env.NEXT_PUBLIC_SITE_CODE;
 const LOCAL_COMMENT_VERSION = "v2";
 const DAILY_COMMENT_LIMIT = 10;
+const CHARACTER_LIMIT = 500;
 
 type LocalComment = {
   id: string;
@@ -157,6 +158,11 @@ export function ArticleComments({ slug }: { slug: string }) {
 
   const remainingToday = Math.max(DAILY_COMMENT_LIMIT - commentsToday, 0);
   const limitReached = remainingToday <= 0;
+  const characterCount = commentBody.length;
+  const charactersRemaining = CHARACTER_LIMIT - characterCount;
+  const isCommentEmpty = commentBody.trim().length === 0;
+  const isCharacterLimitExceeded = characterCount > CHARACTER_LIMIT;
+  const isSubmitDisabled = limitReached || isCommentEmpty || isCharacterLimitExceeded;
   const resetLabel = nextResetTime().toLocaleString("en-IN", {
     day: "numeric",
     month: "short",
@@ -212,6 +218,11 @@ export function ArticleComments({ slug }: { slug: string }) {
       return;
     }
 
+    if (cleanBody.length > CHARACTER_LIMIT) {
+      setFormError(`Comment must be ${CHARACTER_LIMIT} characters or less.`);
+      return;
+    }
+
     if (limitReached) {
       setFormError("You have reached the 10 comments per day limit on this device.");
       return;
@@ -258,37 +269,56 @@ export function ArticleComments({ slug }: { slug: string }) {
           <Textarea
             id="comment-body"
             value={commentBody}
-            onChange={(event) => setCommentBody(event.target.value)}
+            onChange={(event) => {
+              setCommentBody(event.target.value);
+              setFormError(null);
+            }}
             placeholder="Write your comment here"
             className="min-h-28"
-            maxLength={2000}
+            maxLength={CHARACTER_LIMIT + 50}
             disabled={limitReached}
           />
         </div>
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="space-y-1">
-            <div
-              className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                limitReached
-                  ? "bg-destructive/10 text-destructive"
-                  : remainingToday <= 3
-                    ? "bg-amber-100 text-amber-700"
-                    : "bg-primary/10 text-primary"
-              }`}
-            >
-              {limitReached
-                ? `Daily limit reached: ${DAILY_COMMENT_LIMIT}/${DAILY_COMMENT_LIMIT}`
-                : `${remainingToday} of ${DAILY_COMMENT_LIMIT} comments left today`}
+        <div className="mt-3 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="space-y-1">
+              <div
+                className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                  limitReached
+                    ? "bg-destructive/10 text-destructive"
+                    : remainingToday <= 3
+                      ? "bg-amber-100 text-amber-700"
+                      : "bg-primary/10 text-primary"
+                }`}
+              >
+                {limitReached
+                  ? `Daily limit reached: ${DAILY_COMMENT_LIMIT}/${DAILY_COMMENT_LIMIT}`
+                  : `${remainingToday} of ${DAILY_COMMENT_LIMIT} comments left today`}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {limitReached
+                  ? `You can publish again after ${resetLabel}.`
+                  : `Limit resets after ${resetLabel}.`}
+              </p>
             </div>
-            <p className="text-xs text-muted-foreground">
-              {limitReached
-                ? `You can publish again after ${resetLabel}.`
-                : `Limit resets after ${resetLabel}.`}
-            </p>
+            <div className={`text-xs font-medium ${
+              isCharacterLimitExceeded 
+                ? "text-destructive" 
+                : charactersRemaining <= 50 
+                  ? "text-amber-600" 
+                  : "text-muted-foreground"
+            }`}>
+              {characterCount}/{CHARACTER_LIMIT} characters
+            </div>
           </div>
-          <Button type="submit" disabled={limitReached}>
-            Publish Comment
-          </Button>
+          <div className="flex justify-end">
+            <Button 
+              type="submit" 
+              disabled={isSubmitDisabled}
+            >
+              Publish Comment
+            </Button>
+          </div>
         </div>
         {formError ? <p className="mt-3 text-sm text-destructive">{formError}</p> : null}
       </form>

@@ -2,24 +2,39 @@ import { BookOpen, Clock3, Feather, Mail, MessageSquare, Sparkles } from 'lucide
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { SITE_CONFIG } from '@/lib/site-config'
+import { Button } from '@/components/ui/button'
 
 export const CONTACT_PAGE_OVERRIDE_ENABLED = true
+
+// Email configuration from environment variables
+const emailConfig = {
+  editorial: process.env.NEXT_PUBLIC_CONTACT_EMAIL_EDITORIAL || 'editorial@choicemakerscrew.com',
+  partnerships: process.env.NEXT_PUBLIC_CONTACT_EMAIL_PARTNERSHIPS || 'partnerships@choicemakerscrew.com',
+  support: process.env.NEXT_PUBLIC_CONTACT_EMAIL_SUPPORT || 'support@choicemakerscrew.com',
+  general: process.env.NEXT_PUBLIC_CONTACT_EMAIL_GENERAL || 'info@choicemakerscrew.com',
+}
 
 const lanes = [
   {
     icon: BookOpen,
     title: 'Editorial submissions',
     body: 'Pitch essays, long-form analysis, and feature ideas aligned with the journal style.',
+    email: emailConfig.editorial,
+    emailLabel: 'Email Editorial Team',
   },
   {
     icon: Mail,
     title: 'Partnership requests',
     body: 'Collaborate on sponsored issues, newsletter placements, and publication campaigns.',
+    email: emailConfig.partnerships,
+    emailLabel: 'Email Partnerships',
   },
   {
     icon: MessageSquare,
     title: 'Reader support',
     body: 'Get help with account access, saved reading lists, and on-site publishing questions.',
+    email: emailConfig.support,
+    emailLabel: 'Email Support',
   },
 ]
 
@@ -48,6 +63,15 @@ export function ContactPageOverride() {
                   <lane.icon className="h-5 w-5 text-[rgb(232,168,50)]" />
                   <h2 className="mt-3 text-xl font-semibold text-foreground">{lane.title}</h2>
                   <p className="mt-2 text-sm leading-7 text-muted-foreground">{lane.body}</p>
+                  <div className="mt-4">
+                    <a 
+                      href={`mailto:${lane.email}`}
+                      className="inline-flex items-center gap-2 rounded-full border border-[rgb(232,168,50)] bg-[rgba(232,168,50,0.12)] px-4 py-2 text-sm font-semibold text-[rgb(232,168,50)] transition-colors hover:bg-[rgba(232,168,50,0.2)]"
+                    >
+                      <Mail className="h-4 w-4" />
+                      {lane.emailLabel}
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>
@@ -70,14 +94,31 @@ export function ContactPageOverride() {
                 Send message
               </button>
             </form>
-            <div className="mt-6 grid gap-3 rounded-2xl border border-white/10 bg-white/3 p-4 text-xs text-muted-foreground sm:grid-cols-2">
-              <div className="inline-flex items-center gap-2">
-                <Clock3 className="h-3.5 w-3.5 text-[rgb(232,168,50)]" />
-                Avg response: under 24 hours
+            <div className="mt-6 space-y-4">
+              <div className="grid gap-3 rounded-2xl border border-white/10 bg-white/3 p-4 text-xs text-muted-foreground sm:grid-cols-2">
+                <div className="inline-flex items-center gap-2">
+                  <Clock3 className="h-3.5 w-3.5 text-[rgb(232,168,50)]" />
+                  Avg response: under 24 hours
+                </div>
+                <div className="inline-flex items-center gap-2">
+                  <Sparkles className="h-3.5 w-3.5 text-[rgb(232,168,50)]" />
+                  Editorial-first support routing
+                </div>
               </div>
-              <div className="inline-flex items-center gap-2">
-                <Sparkles className="h-3.5 w-3.5 text-[rgb(232,168,50)]" />
-                Editorial-first support routing
+              <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-foreground">General inquiries</p>
+                    <p className="text-xs text-muted-foreground mt-1">For all other questions and general contact</p>
+                  </div>
+                  <a 
+                    href={`mailto:${emailConfig.general}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-[rgb(232,168,50)] bg-[rgba(232,168,50,0.12)] px-4 py-2 text-sm font-semibold text-[rgb(232,168,50)] transition-colors hover:bg-[rgba(232,168,50,0.2)]"
+                  >
+                    <Mail className="h-4 w-4" />
+                    Email Us
+                  </a>
+                </div>
               </div>
             </div>
           </div>
