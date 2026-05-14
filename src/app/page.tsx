@@ -13,9 +13,10 @@ import { siteContent } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
 import { getProductKind, type ProductKind } from '@/design/factory/get-product-kind'
 import type { SitePost } from '@/lib/site-connector'
-import { HOME_PAGE_OVERRIDE_ENABLED, HomePageOverride } from '@/overrides/home-page'
+import { HomePageOverride } from '@/overrides/home-page'
 
 export const revalidate = 300
+const HOME_PAGE_OVERRIDE_ENABLED = true
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata({
