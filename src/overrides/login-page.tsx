@@ -111,9 +111,6 @@ export function LoginPageOverride() {
             <h2 className="mt-2 font-display text-2xl font-bold tracking-[-0.03em] text-foreground">
               Sign in to {SITE_CONFIG.name}
             </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Your session is saved locally — no server required.
-            </p>
 
             {/* Error */}
             {error && (
@@ -213,3 +210,4 @@ export function LoginPageOverride() {
     </div>
   )
 }
+

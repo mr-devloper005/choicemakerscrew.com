@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Clock, TrendingUp, Feather } from 'lucide-react'
+import { ArrowRight, BookOpen, Clock, TrendingUp } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
 import { ContentImage } from '@/components/shared/content-image'
@@ -221,10 +221,6 @@ export async function HomePageOverride() {
         <div className="mx-auto max-w-7xl px-4 pt-14 pb-10 sm:px-6 lg:px-8">
           {/* Masthead header */}
           <div className="mb-10 flex flex-col items-center text-center">
-            <div className="editorial-badge mb-4">
-              <Feather className="h-3 w-3" />
-              Fresh insights to power smarter decisions
-            </div>
             <h1 className="font-display text-5xl font-bold tracking-[-0.04em] text-foreground sm:text-6xl lg:text-7xl">
               The Choice Makers<br className="hidden sm:block" /> Journal
             </h1>

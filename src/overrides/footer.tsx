@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Twitter, Github, Linkedin } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
 
 export const FOOTER_OVERRIDE_ENABLED = true
@@ -16,21 +15,13 @@ const FOOTER_SECTIONS = {
   Support: [
     { label: 'FAQs', href: '/help' },
     { label: 'Contact Us', href: '/contact' },
-    { label: 'Status', href: '/status' },
   ],
   Legal: [
     { label: 'Terms & Conditions', href: '/terms' },
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Cookies', href: '/cookies' },
-    { label: 'Licenses', href: '/licenses' },
   ],
 }
-
-const SOCIAL_LINKS = [
-  { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
-  { name: 'GitHub', href: 'https://github.com', icon: Github },
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-]
 
 export function FooterOverride() {
   return (
@@ -51,21 +42,6 @@ export function FooterOverride() {
             <p className="text-sm leading-7 text-muted-foreground max-w-xs">
               {SITE_CONFIG.description}
             </p>
-            {/* Social icons */}
-            <div className="flex gap-2 mt-1">
-              {SOCIAL_LINKS.map(({ name, href, icon: Icon }) => (
-                <Link
-                  key={name}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={name}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/8 text-muted-foreground transition-colors duration-150 hover:border-[rgba(232,168,50,0.25)] hover:text-[rgb(232,168,50)]"
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                </Link>
-              ))}
-            </div>
           </div>
 
           {/* Nav columns */}
