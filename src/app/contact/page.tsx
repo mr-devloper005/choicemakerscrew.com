@@ -1,114 +1,99 @@
-import { Building2, FileText, Image as ImageIcon, Mail, MapPin, Phone, Sparkles, Bookmark } from 'lucide-react'
-import { NavbarShell } from '@/components/shared/navbar-shell'
-import { Footer } from '@/components/shared/footer'
-import { SITE_CONFIG } from '@/lib/site-config'
-import { getFactoryState } from '@/design/factory/get-factory-state'
-import { getProductKind } from '@/design/factory/get-product-kind'
-import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/contact-page'
+import { ArrowUpRight, Clock3, MailCheck, Radar, Sparkles, Workflow } from 'lucide-react';
 
-function getTone(kind: ReturnType<typeof getProductKind>) {
-  if (kind === 'directory') {
-    return {
-      shell: 'bg-[#f8fbff] text-slate-950',
-      panel: 'border border-slate-200 bg-white',
-      soft: 'border border-slate-200 bg-slate-50',
-      muted: 'text-slate-600',
-      action: 'bg-slate-950 text-white hover:bg-slate-800',
-    }
-  }
-  if (kind === 'editorial') {
-    return {
-      shell: 'bg-[#fbf6ee] text-[#241711]',
-      panel: 'border border-[#dcc8b7] bg-[#fffdfa]',
-      soft: 'border border-[#e6d6c8] bg-[#fff4e8]',
-      muted: 'text-[#6e5547]',
-      action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
-    }
-  }
-  if (kind === 'visual') {
-    return {
-      shell: 'bg-[#07101f] text-white',
-      panel: 'border border-white/10 bg-white/6',
-      soft: 'border border-white/10 bg-white/5',
-      muted: 'text-slate-300',
-      action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
-    }
-  }
-  return {
-    shell: 'bg-[#f7f1ea] text-[#261811]',
-    panel: 'border border-[#ddcdbd] bg-[#fffaf4]',
-    soft: 'border border-[#e8dbce] bg-[#f3e8db]',
-    muted: 'text-[#71574a]',
-    action: 'bg-[#5b2b3b] text-[#fff0f5] hover:bg-[#74364b]',
-  }
-}
+import { ContactLeadForm } from '@/components/shared/contact-lead-form';
+import { Footer } from '@/components/shared/footer';
+import { NavbarShell } from '@/components/shared/navbar-shell';
+
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Choice Makers Crew';
+
+const contactSignals = [
+  {
+    icon: Radar,
+    title: 'Signal Received',
+    copy: 'Every request is recorded as a clear signal so nothing gets lost between teams.',
+  },
+  {
+    icon: Workflow,
+    title: 'Routed to Action',
+    copy: 'Your note is routed by topic and urgency, then assigned for follow-up.',
+  },
+  {
+    icon: MailCheck,
+    title: 'Response Logged',
+    copy: 'Replies are tracked so the full context stays visible through resolution.',
+  },
+];
+
+const responseMoments = [
+  { label: '0-10 min', detail: 'Initial triage and tagging', icon: Clock3 },
+  { label: 'Within 24h', detail: 'First meaningful response', icon: Sparkles },
+  { label: 'After submit', detail: 'Confirmation in your inbox', icon: ArrowUpRight },
+];
 
 export default function ContactPage() {
-  if (CONTACT_PAGE_OVERRIDE_ENABLED) {
-    return <ContactPageOverride />
-  }
-
-  const { recipe } = getFactoryState()
-  const productKind = getProductKind(recipe)
-  const tone = getTone(productKind)
-  const lanes =
-    productKind === 'directory'
-      ? [
-          { icon: Building2, title: 'Business onboarding', body: 'Add listings, verify operational details, and bring your business surface live quickly.' },
-          { icon: Phone, title: 'Partnership support', body: 'Talk through bulk publishing, local growth, and operational setup questions.' },
-          { icon: MapPin, title: 'Coverage requests', body: 'Need a new geography or category lane? We can shape the directory around it.' },
-        ]
-      : productKind === 'editorial'
-        ? [
-            { icon: FileText, title: 'Editorial submissions', body: 'Pitch essays, columns, and long-form ideas that fit the publication.' },
-            { icon: Mail, title: 'Newsletter partnerships', body: 'Coordinate sponsorships, collaborations, and issue-level campaigns.' },
-            { icon: Sparkles, title: 'Contributor support', body: 'Get help with voice, formatting, and publication workflow questions.' },
-          ]
-        : productKind === 'visual'
-          ? [
-              { icon: ImageIcon, title: 'Creator collaborations', body: 'Discuss gallery launches, creator features, and visual campaigns.' },
-              { icon: Sparkles, title: 'Licensing and use', body: 'Reach out about usage rights, commercial requests, and visual partnerships.' },
-              { icon: Mail, title: 'Media kits', body: 'Request creator decks, editorial support, or visual feature placement.' },
-            ]
-          : [
-              { icon: Bookmark, title: 'Collection submissions', body: 'Suggest resources, boards, and links that deserve a place in the library.' },
-              { icon: Mail, title: 'Resource partnerships', body: 'Coordinate curation projects, reference pages, and link programs.' },
-              { icon: Sparkles, title: 'Curator support', body: 'Need help organizing shelves, collections, or profile-connected boards?' },
-            ]
-
   return (
-    <div className={`min-h-screen ${tone.shell}`}>
+    <div className="min-h-screen bg-[#060910] text-[#ecf4ff]">
       <NavbarShell />
-      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <section className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Contact {SITE_CONFIG.name}</p>
-            <h1 className="mt-4 text-5xl font-semibold tracking-[-0.05em]">A support page that matches the product, not a generic contact form.</h1>
-            <p className={`mt-5 max-w-2xl text-sm leading-8 ${tone.muted}`}>Tell us what you are trying to publish, fix, or launch. We will route it through the right lane instead of forcing every request into the same support bucket.</p>
-            <div className="mt-8 space-y-4">
-              {lanes.map((lane) => (
-                <div key={lane.title} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
-                  <lane.icon className="h-5 w-5" />
-                  <h2 className="mt-3 text-xl font-semibold">{lane.title}</h2>
-                  <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{lane.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      <main>
+        <section className="relative overflow-hidden px-5 py-14 sm:px-8 sm:py-16 lg:px-14 lg:py-20">
+          <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-[#2d67ff]/20 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-10 right-0 h-80 w-80 rounded-full bg-[#22d3ee]/15 blur-3xl" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,0.08),transparent_35%),radial-gradient(circle_at_80%_70%,rgba(34,211,238,0.12),transparent_30%)]" />
 
-          <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
-            <h2 className="text-2xl font-semibold">Send a message</h2>
-            <form className="mt-6 grid gap-4">
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Your name" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Email address" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="What do you need help with?" />
-              <textarea className="min-h-[180px] rounded-2xl border border-current/10 bg-transparent px-4 py-3 text-sm" placeholder="Share the full context so we can respond with the right next step." />
-              <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${tone.action}`}>Send message</button>
-            </form>
+          <div className="relative mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="space-y-6">
+              <h1 className="max-w-3xl text-4xl font-bold leading-[0.94] tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
+                Start a conversation that actually moves.
+              </h1>
+
+              <p className="max-w-2xl text-base leading-8 text-[#b6c6e6] sm:text-lg">
+                Reach {siteName} with one clear message. We route requests with intent,
+                track each step, and keep your context intact from first touch to resolution.
+              </p>
+
+              <div className="grid gap-3 sm:grid-cols-3">
+                {responseMoments.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-white/10 bg-[#0b1328]/80 px-4 py-4 shadow-[0_18px_44px_rgba(2,9,25,0.4)]"
+                  >
+                    <item.icon className="h-4 w-4 text-[#7dd3fc]" />
+                    <p className="mt-2 text-sm font-semibold text-white">{item.label}</p>
+                    <p className="mt-1 text-xs leading-5 text-[#95a8ca]">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-4 pt-1">
+                {contactSignals.map((item) => (
+                  <div
+                    key={item.title}
+                    className="group rounded-2xl border border-white/10 bg-[linear-gradient(140deg,rgba(17,28,55,0.86),rgba(9,15,30,0.88))] p-5 transition-transform duration-300 hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#7dd3fc]/25 bg-[#0b1732] text-[#7dd3fc]">
+                        <item.icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h2 className="text-base font-semibold text-white">{item.title}</h2>
+                        <p className="mt-1 text-sm leading-6 text-[#98aad0]">{item.copy}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-[1.8rem] bg-[linear-gradient(140deg,rgba(45,103,255,0.7),rgba(34,211,238,0.45),rgba(56,189,248,0.2))] blur-md" />
+              <div className="relative rounded-[1.7rem] border border-white/10 bg-[linear-gradient(165deg,rgba(6,12,28,0.96),rgba(7,14,30,0.94))] p-1.5">
+                <ContactLeadForm />
+              </div>
+            </div>
           </div>
         </section>
       </main>
       <Footer />
     </div>
-  )
+  );
 }

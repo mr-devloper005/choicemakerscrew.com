@@ -40,9 +40,6 @@ export function NavbarOverride() {
             <span className="block text-base font-bold tracking-[-0.02em] text-foreground leading-tight">
               {SITE_CONFIG.name}
             </span>
-            <span className="block text-[10px] font-medium uppercase tracking-[0.22em] text-muted-foreground leading-tight">
-              Editorial Journal
-            </span>
           </div>
         </Link>
 
